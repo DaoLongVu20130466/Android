@@ -12,7 +12,7 @@
         android:theme="@style/Theme.QuanLyQuanCom"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity2"
+            android:name=".MainActivity"
             android:exported="false" />
     </application>
 
