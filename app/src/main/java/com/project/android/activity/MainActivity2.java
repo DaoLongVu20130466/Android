@@ -1,4 +1,4 @@
-package com.project.android;
+package com.project.android.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.project.android.R;
 
 public class MainActivity2 extends AppCompatActivity {
 
