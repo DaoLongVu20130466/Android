@@ -8,46 +8,36 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.project.android.model.Account;
 import com.project.android.model.Product;
 
+import java.lang.ref.Reference;
 import java.util.ArrayList;
 
 public class AccountControl {
     public AccountControl() {
         getProduct();
+        getUser();
     }
 
-    ArrayList<Account> list;
-    public void SaveProduct(Account account){
+    ArrayList<Account> adminlist;
+    ArrayList<Account> Userlist;
+    public void SaveProduct(Account account) {
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://quanlyquancom-default-rtdb.asia-southeast1.firebasedatabase.app");
         DatabaseReference myRef = database.getReference("Account");
-        myRef.child("Admin").child(account.getUserName()).setValue(account);
+        myRef.child("User").child(account.getUserName()).setValue(account);
     }
-    public void getProduct(){
+
+    public void getProduct() {
         ArrayList<Account> list = new ArrayList<>();
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://quanlyquancom-default-rtdb.asia-southeast1.firebasedatabase.app");
         DatabaseReference myRef = database.getReference("Account");
-        myRef.child("Admin").addChildEventListener(new ChildEventListener() {
+        myRef.child("User").addValueEventListener(new ValueEventListener() {
             @Override
-            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Account rs = snapshot.getValue(Account.class);
                 list.add(rs);
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
             }
 
             @Override
@@ -55,12 +45,50 @@ public class AccountControl {
 
             }
         });
-        this.list = list;
+        this.Userlist = list;
     }
-    public void saveallChange(){
-        for (Account e: this.list
+
+    public void getUser() {
+        ArrayList<Account> list = new ArrayList<>();
+        FirebaseDatabase database = FirebaseDatabase.getInstance("https://quanlyquancom-default-rtdb.asia-southeast1.firebasedatabase.app");
+        DatabaseReference myRef = database.getReference("Account");
+        myRef.child("Admin").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Account rs = snapshot.getValue(Account.class);
+                list.add(rs);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        this.adminlist = list;
+    }
+
+    public void saveallChange() {
+        for (Account e : this.Userlist
         ) {
             this.SaveProduct(e);
         }
+
+    }
+    public Account getDirectAdminUser(String id) {
+        final Account[] rs = {new Account()};
+        FirebaseDatabase database = FirebaseDatabase.getInstance("https://quanlyquancom-default-rtdb.asia-southeast1.firebasedatabase.app");
+        DatabaseReference myRef = database.getReference("Account");
+        myRef.child("Admin").child(id).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+               rs[0] = snapshot.getValue(Account.class);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        return rs[0];
     }
 }
