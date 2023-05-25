@@ -9,7 +9,9 @@ import android.widget.Button;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.project.android.R;
+import com.project.android.controller.AccountControl;
 import com.project.android.controller.ProductControl;
+import com.project.android.model.Account;
 import com.project.android.model.Product;
 
 public class MainActivity extends AppCompatActivity {
@@ -22,8 +24,8 @@ public class MainActivity extends AppCompatActivity {
         check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Product test = new Product("001","fucking comga","1",100,true,true,true,"Fucking Link",300000,20000);
-                ProductControl pro = new ProductControl();
+                Account test = new Account("001","123456","daolongvu01","daolongvu86@gmail.com","0985034347","https://firebasestorage.googleapis.com/v0/b/quanlyquancom.appspot.com/o/DefaultAvt.jpg?alt=media&token=364830d8-0c46-4353-995f-ff3e3d6c6c1d","Daolongvu");
+                AccountControl pro = new AccountControl();
                 pro.SaveProduct(test);
             }
         });
