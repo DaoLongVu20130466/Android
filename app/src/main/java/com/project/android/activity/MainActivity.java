@@ -9,6 +9,8 @@ import android.widget.Button;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.project.android.R;
+import com.project.android.controller.ProductControl;
+import com.project.android.model.Product;
 
 public class MainActivity extends AppCompatActivity {
     Button check ;
@@ -20,9 +22,9 @@ public class MainActivity extends AppCompatActivity {
         check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FirebaseDatabase database = FirebaseDatabase.getInstance("https://quanlyquancom-default-rtdb.asia-southeast1.firebasedatabase.app");
-                DatabaseReference myRef = database.getReference("message");
-                myRef.child("lzuu").push().setValue("lzuu dep trai qu2a");
+                Product test = new Product("001","fucking comga","1",100,true,true,true,"Fucking Link",300000,20000);
+                ProductControl pro = new ProductControl();
+                pro.SaveProduct(test);
             }
         });
 
