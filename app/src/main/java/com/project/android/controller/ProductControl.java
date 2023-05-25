@@ -31,8 +31,7 @@ public class ProductControl {
         myRef.child("Product").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                Product rs = snapshot.getValue(Product.class);
-                list.add(rs);
+                
             }
 
             @Override
