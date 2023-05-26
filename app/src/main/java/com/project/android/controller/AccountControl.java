@@ -17,19 +17,36 @@ import java.util.ArrayList;
 
 public class AccountControl {
     public AccountControl() {
-        getProduct();
         getUser();
+        getAdmin();
     }
 
     ArrayList<Account> adminlist;
     ArrayList<Account> Userlist;
+
+    public ArrayList<Account> getAdminlist() {
+        return adminlist;
+    }
+
+    public void setAdminlist(ArrayList<Account> adminlist) {
+        this.adminlist = adminlist;
+    }
+
+    public ArrayList<Account> getUserlist() {
+        return Userlist;
+    }
+
+    public void setUserlist(ArrayList<Account> userlist) {
+        Userlist = userlist;
+    }
+
     public void SaveProduct(Account account) {
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://quanlyquancom-default-rtdb.asia-southeast1.firebasedatabase.app");
         DatabaseReference myRef = database.getReference("Account");
         myRef.child("User").child(account.getUserName()).setValue(account);
     }
 
-    public void getProduct() {
+    public void getUser() {
         ArrayList<Account> list = new ArrayList<>();
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://quanlyquancom-default-rtdb.asia-southeast1.firebasedatabase.app");
         DatabaseReference myRef = database.getReference("Account");
@@ -48,7 +65,7 @@ public class AccountControl {
         this.Userlist = list;
     }
 
-    public void getUser() {
+        public void getAdmin() {
         ArrayList<Account> list = new ArrayList<>();
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://quanlyquancom-default-rtdb.asia-southeast1.firebasedatabase.app");
         DatabaseReference myRef = database.getReference("Account");
@@ -75,13 +92,13 @@ public class AccountControl {
 
     }
     public Account getDirectAdminUser(String id) {
-         Account[] rs = {new Account()};
+         ArrayList<Account> rs = new ArrayList<>();
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://quanlyquancom-default-rtdb.asia-southeast1.firebasedatabase.app");
-        DatabaseReference myRef = database.getReference("Account");
-        myRef.child("Admin").child(id).addValueEventListener(new ValueEventListener() {
+        DatabaseReference myRef = database.getReference("Account/User/"+id);
+        myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-               rs[0] = snapshot.getValue(Account.class);
+               rs.add( snapshot.getValue(Account.class)) ;
             }
 
             @Override
@@ -89,6 +106,16 @@ public class AccountControl {
 
             }
         });
-        return rs[0];
+        return rs.get(0);
+    }
+    public String getUserLogin(String usename){
+        String rs ="";
+        AccountControl pro = new AccountControl();
+        for(Account user : pro.getUserlist() ){
+            if(user.getUserName().equals(usename)){
+                rs=user.getUserName();
+            }
+        }
+        return rs;
     }
 }

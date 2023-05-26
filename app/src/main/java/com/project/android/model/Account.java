@@ -1,5 +1,7 @@
 package com.project.android.model;
 
+import com.project.android.controller.AccountControl;
+
 public class Account {
     String id;
     String password;
