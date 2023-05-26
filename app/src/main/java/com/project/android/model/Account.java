@@ -1,5 +1,6 @@
 package com.project.android.model;
 
+import com.google.firebase.database.DataSnapshot;
 import com.project.android.controller.AccountControl;
 
 public class Account {
@@ -78,5 +79,9 @@ public class Account {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void getAccinfor(DataSnapshot snapshot) {
+
     }
 }
