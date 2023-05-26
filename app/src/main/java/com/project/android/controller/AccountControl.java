@@ -75,7 +75,7 @@ public class AccountControl {
 
     }
     public Account getDirectAdminUser(String id) {
-         Account[] rs = {new Account()};
+         Account[] rs = {};
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://quanlyquancom-default-rtdb.asia-southeast1.firebasedatabase.app");
         DatabaseReference myRef = database.getReference("Account");
         myRef.child("Admin").child(id).addValueEventListener(new ValueEventListener() {
