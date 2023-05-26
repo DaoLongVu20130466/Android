@@ -1,14 +1,20 @@
 package com.project.android.controller;
 
+import android.util.Log;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.project.android.activity.LoginActivity;
 import com.project.android.model.Account;
 import com.project.android.model.Product;
 
@@ -17,12 +23,13 @@ import java.util.ArrayList;
 
 public class AccountControl {
     public AccountControl() {
-        getUser();
-        getAdmin();
+//        getUser();
+//        getAdmin();
     }
 
     ArrayList<Account> adminlist;
     ArrayList<Account> Userlist;
+    Account _account;
 
     public ArrayList<Account> getAdminlist() {
         return adminlist;
@@ -91,14 +98,17 @@ public class AccountControl {
         }
 
     }
-    public Account getDirectAdminUser(String id) {
-         ArrayList<Account> rs = new ArrayList<>();
-        FirebaseDatabase database = FirebaseDatabase.getInstance("https://quanlyquancom-default-rtdb.asia-southeast1.firebasedatabase.app");
-        DatabaseReference myRef = database.getReference("Account/User/"+id);
-        myRef.addValueEventListener(new ValueEventListener() {
+
+    public Account get_account() {
+        return _account;
+    }
+
+    public void getDirectAdminUser(String id) {
+        DatabaseReference database = FirebaseDatabase.getInstance("https://quanlyquancom-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Account");
+        database.child("User").child(id).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-               rs.add( snapshot.getValue(Account.class)) ;
+                _account.setId(snapshot.child("id").getValue().toString());
             }
 
             @Override
@@ -106,7 +116,6 @@ public class AccountControl {
 
             }
         });
-        return rs.get(0);
     }
     public String getUserLogin(String usename){
         String rs ="";
