@@ -7,22 +7,40 @@
     tools:context=".activity.MainActivity">
 
     <Button
-        android:id="@+id/saveFile"
+        android:id="@+id/Imagebutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="52dp"
-        android:text="Button"
+        android:layout_marginBottom="200dp"
+        android:text="Imagebtn"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/pictureView"
+        android:layout_width="254dp"
+        android:layout_height="197dp"
+        android:layout_marginBottom="116dp"
+        app:layout_constraintBottom_toTopOf="@+id/Imagebutton"
+        tools:layout_editor_absoluteX="78dp"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/Path"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="265dp"
-        tools:ignore="MissingConstraints" />
+        tools:layout_editor_absoluteY="577dp" />
 
     <Button
-        android:id="@+id/next"
+        android:id="@+id/opengalerry"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Next"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="52dp"
-        tools:layout_editor_absoluteY="443dp" />
-
+        android:layout_marginBottom="52dp"
+        android:text="Button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="161dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
