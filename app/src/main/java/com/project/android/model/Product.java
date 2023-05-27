@@ -14,6 +14,23 @@ public class Product {
     String img;
     int price;
     int basePrice;
+    int image;
+
+    public Product(int image ,String foodName, String idType)  {
+        this.image = image;
+        this.foodName = foodName;
+        this.idType = idType;
+
+    }
+
+    public int getImage() {
+        return image;
+    }
+
+    public void setImage(int image) {
+        this.image = image;
+    }
+
     public Product() {
     }
 
