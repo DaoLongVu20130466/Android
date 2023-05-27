@@ -46,7 +46,6 @@ public class LoginActivity extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         Account user= snapshot.getValue(Account.class);
                         Toast.makeText(LoginActivity.this, user.getPassword(), Toast.LENGTH_SHORT).show();
-//                        account.setPassword( snapshot.child("password").getValue().toString());
                         methodToProcess( user);
                     }
 

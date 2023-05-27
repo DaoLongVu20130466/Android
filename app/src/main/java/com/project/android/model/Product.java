@@ -17,6 +17,15 @@ public class Product {
     public Product() {
     }
 
+    public Product(String foodName, String idType, int quantity, String img, int price, int basePrice) {
+        this.foodName = foodName;
+        this.idType = idType;
+        this.quantity = quantity;
+        this.img = img;
+        this.price = price;
+        this.basePrice = basePrice;
+    }
+
     public Product(String id, String foodName, String idType, int quantity, boolean isCombo, boolean idSale, boolean isHot, String img, int price, int basePrice) {
         this.id = id;
         this.foodName = foodName;

@@ -89,7 +89,6 @@ public class MainActivity extends AppCompatActivity {
             Uri selectedImage = data.getData();
             text.setText(selectedImage.getPath());
             next.setImageURI(selectedImage);
-
         }
     }
 }
