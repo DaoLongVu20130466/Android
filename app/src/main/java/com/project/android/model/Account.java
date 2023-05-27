@@ -1,6 +1,11 @@
 package com.project.android.model;
 
-public class Account {
+import com.google.firebase.database.DataSnapshot;
+import com.project.android.controller.AccountControl;
+
+import java.io.Serializable;
+
+public class Account implements Serializable {
     String id;
     String password;
     String userName;
@@ -76,5 +81,9 @@ public class Account {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void getAccinfor(DataSnapshot snapshot) {
+
     }
 }

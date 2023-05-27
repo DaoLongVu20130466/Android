@@ -21,12 +21,12 @@ public class AdminActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin);
-
         tabLayout = findViewById(R.id.tabLayoutAdmin);
         viewPager2 = findViewById(R.id.viewAdmin);
 
         myViewPagerAdapter = new MyViewPagerAdapter(this);
         viewPager2.setAdapter(myViewPagerAdapter);
+
 
         new TabLayoutMediator(tabLayout, viewPager2, (tab, position) -> {
             switch (position) {
@@ -46,4 +46,5 @@ public class AdminActivity extends AppCompatActivity {
         }).attach();
 
     }
+
 }

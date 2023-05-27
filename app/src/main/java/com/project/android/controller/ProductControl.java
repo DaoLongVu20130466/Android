@@ -21,8 +21,11 @@ public class ProductControl {
 
     ArrayList<Product> list;
     public void SaveProduct(Product product){
+
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://quanlyquancom-default-rtdb.asia-southeast1.firebasedatabase.app");
         DatabaseReference myRef = database.getReference("Product");
+        String mGroupId = myRef.push().getKey();
+        product.setId(mGroupId);
         myRef.child("Product").child(product.getId()).setValue(product);
     }
     public void getProduct(){

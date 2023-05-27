@@ -1,14 +1,20 @@
 package com.project.android.controller;
 
+import android.util.Log;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.project.android.activity.LoginActivity;
 import com.project.android.model.Account;
 import com.project.android.model.Product;
 
@@ -17,19 +23,37 @@ import java.util.ArrayList;
 
 public class AccountControl {
     public AccountControl() {
-        getProduct();
-        getUser();
+//        getUser();
+//        getAdmin();
     }
 
     ArrayList<Account> adminlist;
     ArrayList<Account> Userlist;
+    Account _account;
+
+    public ArrayList<Account> getAdminlist() {
+        return adminlist;
+    }
+
+    public void setAdminlist(ArrayList<Account> adminlist) {
+        this.adminlist = adminlist;
+    }
+
+    public ArrayList<Account> getUserlist() {
+        return Userlist;
+    }
+
+    public void setUserlist(ArrayList<Account> userlist) {
+        Userlist = userlist;
+    }
+
     public void SaveProduct(Account account) {
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://quanlyquancom-default-rtdb.asia-southeast1.firebasedatabase.app");
         DatabaseReference myRef = database.getReference("Account");
         myRef.child("User").child(account.getUserName()).setValue(account);
     }
 
-    public void getProduct() {
+    public void getUser() {
         ArrayList<Account> list = new ArrayList<>();
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://quanlyquancom-default-rtdb.asia-southeast1.firebasedatabase.app");
         DatabaseReference myRef = database.getReference("Account");
@@ -48,7 +72,7 @@ public class AccountControl {
         this.Userlist = list;
     }
 
-    public void getUser() {
+        public void getAdmin() {
         ArrayList<Account> list = new ArrayList<>();
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://quanlyquancom-default-rtdb.asia-southeast1.firebasedatabase.app");
         DatabaseReference myRef = database.getReference("Account");
@@ -74,14 +98,17 @@ public class AccountControl {
         }
 
     }
-    public Account getDirectAdminUser(String id) {
-         Account[] rs = {new Account()};
-        FirebaseDatabase database = FirebaseDatabase.getInstance("https://quanlyquancom-default-rtdb.asia-southeast1.firebasedatabase.app");
-        DatabaseReference myRef = database.getReference("Account");
-        myRef.child("Admin").child(id).addValueEventListener(new ValueEventListener() {
+
+    public Account get_account() {
+        return _account;
+    }
+
+    public void getDirectAdminUser(String id) {
+        DatabaseReference database = FirebaseDatabase.getInstance("https://quanlyquancom-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Account");
+        database.child("User").child(id).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-               rs[0] = snapshot.getValue(Account.class);
+                _account.setId(snapshot.child("id").getValue().toString());
             }
 
             @Override
@@ -89,6 +116,15 @@ public class AccountControl {
 
             }
         });
-        return rs[0];
+    }
+    public String getUserLogin(String usename){
+        String rs ="";
+        AccountControl pro = new AccountControl();
+        for(Account user : pro.getUserlist() ){
+            if(user.getUserName().equals(usename)){
+                rs=user.getUserName();
+            }
+        }
+        return rs;
     }
 }
