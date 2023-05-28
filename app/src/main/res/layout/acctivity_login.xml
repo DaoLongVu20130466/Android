@@ -27,7 +27,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/Topview" />
 <ImageView
-    android:id="@+id/imageView"
+    android:id="@+id/showAnh"
     android:layout_width="70dp"
     android:layout_height="70dp"
     android:layout_marginTop="32dp"
@@ -47,7 +47,7 @@
         android:textColor="@color/white"
         android:textSize="30sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@id/imageView"
+        app:layout_constraintEnd_toStartOf="@id/showAnh"
         app:layout_constraintHorizontal_bias="0.127"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
