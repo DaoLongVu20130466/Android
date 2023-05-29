@@ -49,7 +49,7 @@ public class ProAdapter extends RecyclerView.Adapter<ProAdapter.ProView> {
         Picasso.get().load(product.getImg()).placeholder(R.drawable.pro_default)
                 .error(R.drawable.pro_default).into(holder.imageView);
         holder.textView.setText(product.getFoodName());
-        holder.textView2.setText(product.getImg());
+        holder.textView2.setText(product.getIdType());
 
     }
 

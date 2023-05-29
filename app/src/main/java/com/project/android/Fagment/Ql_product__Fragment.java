@@ -60,7 +60,7 @@ public class Ql_product__Fragment extends Fragment {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://quanlyquancom-default-rtdb.asia-southeast1.firebasedatabase.app");
         DatabaseReference myRef = database.getReference("Product/Product");
-        List<Product> list = new ArrayList();
+//        List<Product> list = new ArrayList();
         myRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
