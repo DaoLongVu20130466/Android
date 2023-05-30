@@ -22,8 +22,8 @@ public class OderControl {
     ArrayList<Oder> list;
     public void SaveOder(Oder Oder){
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://quanlyquancom-default-rtdb.asia-southeast1.firebasedatabase.app");
-        DatabaseReference myRef = database.getReference("Product");
-        myRef.child("Product").child(Oder.getId()).setValue(Oder);
+        DatabaseReference myRef = database.getReference("Oder");
+        myRef.child("Oder").child(Oder.getId()).setValue(Oder);
 
     }
     public void getProduct(){
