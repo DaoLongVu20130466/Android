@@ -3,6 +3,7 @@ package com.project.android.Adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,6 +16,18 @@ import java.util.List;
 
 public class OderAdapter extends RecyclerView.Adapter<OderAdapter.OderViewHolder>{
     private List<Oder> oderList;
+    private  IClickListener iClickListener;
+
+    public OderAdapter(List<Oder> oderList, IClickListener iClickListener) {
+        this.oderList = oderList;
+        this.iClickListener = iClickListener;
+        notifyDataSetChanged();
+    }
+
+    public interface IClickListener{
+         void onClickDetails(Oder oder);
+        void onClickDelete(Oder oder);
+    }
 
     public OderAdapter(List<Oder> oderList) {
         this.oderList = oderList;
@@ -37,6 +50,14 @@ public class OderAdapter extends RecyclerView.Adapter<OderAdapter.OderViewHolder
             holder.textName.setText("Oder"+oder.getId());
             holder.textDate.setText(oder.getDayCrate());
             holder.textPrice.setText(Integer.toString(oder.getTotal()) +"VNĐ");
+            holder.btndelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    iClickListener.onClickDelete(oder);
+                }
+            });
+
+
     }
 
     @Override
@@ -49,6 +70,7 @@ public class OderAdapter extends RecyclerView.Adapter<OderAdapter.OderViewHolder
 
     public class OderViewHolder extends RecyclerView.ViewHolder{
         private TextView textName, textDate, textPrice;
+        private Button btndelete, btnDetails;
 
 
         public OderViewHolder(@NonNull View itemView) {
@@ -56,6 +78,8 @@ public class OderAdapter extends RecyclerView.Adapter<OderAdapter.OderViewHolder
             textName = itemView.findViewById(R.id.name_order);
             textDate = itemView.findViewById(R.id.date_order);
             textPrice = itemView.findViewById(R.id.price_order);
+            btndelete = itemView.findViewById(R.id.delete_order);
+            btnDetails = itemView.findViewById(R.id.details_order);
         }
     }
 }

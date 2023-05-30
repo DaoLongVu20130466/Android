@@ -4,17 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:paddingTop="16dp"
+    android:paddingTop="32dp"
     android:paddingEnd="16dp"
-    android:paddingStart="16dp"
+    android:paddingStart="32dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    style="@style/Widget.MaterialComponents.Button">
+    >
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/img_pro"
-        android:layout_width="70dp"
-        android:layout_height="80dp"
-        android:src="@drawable/pro_default"/>
+        android:layout_width="60dp"
+        android:layout_height="60dp" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -38,20 +37,21 @@
             android:textColor="@color/gray"
             android:textSize="16dp"/>
         <Button
-            android:id="@+id/detail_pro"
-            android:layout_width="100dp"
-            android:layout_height="45dp"
-            android:text="Button"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="160dp"
-            />
+            android:id="@+id/btadd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Thêm vào giỏ hàng"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+            android:background="@drawable/round_bg"
+            android:textColor="@color/gray"
+            android:textSize="16dp"/>
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:background="@color/black"/>
-
-
     </LinearLayout>
 
 </LinearLayout>

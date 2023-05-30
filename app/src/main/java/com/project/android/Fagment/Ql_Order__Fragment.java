@@ -1,9 +1,12 @@
 package com.project.android.Fagment;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -41,8 +44,36 @@ public class Ql_Order__Fragment extends Fragment {
         getListOder();
         oderList = new ArrayList<>();
         oderAdapter = new OderAdapter(oderList);
+
+        oderAdapter = new OderAdapter(oderList, new OderAdapter.IClickListener() {
+            @Override
+            public void onClickDetails(Oder oder) {
+
+            }
+
+            @Override
+            public void onClickDelete(Oder oder) {
+                onclickDeleData(oder);
+            }
+        });
         recyclerView.setAdapter(oderAdapter);
         return view;
+    }
+    public void onclickDeleData(Oder oder){
+        new AlertDialog.Builder(getActivity()).setTitle(getString(R.string.app_name))
+                .setMessage("Đạo hữu có chắc không ?").setPositiveButton("Yah Sure", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        FirebaseDatabase database = FirebaseDatabase.getInstance("https://quanlyquancom-default-rtdb.asia-southeast1.firebasedatabase.app");
+                        DatabaseReference myRef = database.getReference("Oder/Oder");
+                        myRef.child(String.valueOf(oder.getId())).removeValue(new DatabaseReference.CompletionListener() {
+                            @Override
+                            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                                Toast.makeText(getActivity(), "Đã xong", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                }).setNegativeButton("Ta cần nghĩ lại",null).show();
     }
     public void getListOder(){
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://quanlyquancom-default-rtdb.asia-southeast1.firebasedatabase.app");
@@ -65,6 +96,15 @@ public class Ql_Order__Fragment extends Fragment {
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+                Oder oder = snapshot.getValue(Oder.class);
+                if (oder != null){
+                    for (int i = 0 ; i< oderList.size();i++){
+                        if (oder.getId() == oderList.get(i).getId()){
+                            oderList.remove(oderList.get(i));
+                        }
+                    }
+                }
+                oderAdapter.notifyDataSetChanged();
 
             }
 

@@ -20,6 +20,7 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
         <activity
             android:name=".activity.MainActivity"
@@ -46,6 +47,9 @@
         <activity
             android:name=".activity.MainActivity2"
             android:exported="true" />
+            android:name=".activity.editProduct"
+            android:exported="true">
+        </activity>
     </application>
 
 </manifest>

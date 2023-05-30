@@ -146,7 +146,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:background="@color/white"
-        android:text="Login"
+        android:text="Sign Up"
         android:textColor="@color/color"
         android:textSize="18sp"
         android:textStyle="bold"
