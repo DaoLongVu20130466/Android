@@ -11,7 +11,7 @@
     style="@style/Widget.MaterialComponents.Button">
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/img_pro"
+        android:id="@+id/img_proh"
         android:layout_width="70dp"
         android:layout_height="80dp"
         android:src="@drawable/pro_default"/>
@@ -23,14 +23,14 @@
 
 
         <TextView
-            android:id="@+id/name_pro"
+            android:id="@+id/name_proh"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/app_name"
             android:textColor="@color/black"
             android:textSize="16dp"/>
         <TextView
-            android:id="@+id/type_pro"
+            android:id="@+id/price_proh"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/app_name"
@@ -38,7 +38,7 @@
             android:textColor="@color/gray"
             android:textSize="16dp"/>
         <Button
-            android:id="@+id/detail_pro"
+            android:id="@+id/detail_proh"
             android:layout_width="100dp"
             android:layout_height="45dp"
             android:text="Details"
