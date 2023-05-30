@@ -7,41 +7,40 @@ import android.os.Bundle;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
-import com.project.android.Adapter.usertabadapter;
 import com.project.android.R;
+import com.project.android.Adapter.MyViewHome;
 
-public class UserActitity extends AppCompatActivity {
-
+public class HomeActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager2 viewPager2;
-    private usertabadapter myViewPagerAdapter;
+    private MyViewHome myViewPagerAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_user_actitity);
+        setContentView(R.layout.home);
+        tabLayout = findViewById(R.id.tabLayoutHome);
+        viewPager2 = findViewById(R.id.viewHome);
 
-        tabLayout = findViewById(R.id.tabLayoutAdmin);
-        viewPager2 = findViewById(R.id.viewAdmin);
-
-        myViewPagerAdapter = new usertabadapter(this);
+        myViewPagerAdapter = new MyViewHome(this);
         viewPager2.setAdapter(myViewPagerAdapter);
 
 
         new TabLayoutMediator(tabLayout, viewPager2, (tab, position) -> {
             switch (position) {
                 case 0:
-                    tab.setText("Thông tin người dùng");
+                    tab.setText("Home");
                     break;
                 case 1:
-                    tab.setText("Quản lý đơn hàng");
+                    tab.setText("....");
                     break;
                 case 2:
-                    tab.setText("Chỉnh sửa thông tin");
+                    tab.setText("User");
                     break;
             }
         }).attach();
 
-
     }
+
 }

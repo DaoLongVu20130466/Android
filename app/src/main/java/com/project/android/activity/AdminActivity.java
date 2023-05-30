@@ -1,6 +1,5 @@
 package com.project.android.activity;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -8,8 +7,10 @@ import android.os.Bundle;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
-import com.project.android.R;
+import com.project.android.Adapter.MyViewHome;
 import com.project.android.Adapter.MyViewPagerAdapter;
+import com.project.android.R;
+
 
 public class AdminActivity extends AppCompatActivity {
     private TabLayout tabLayout;
