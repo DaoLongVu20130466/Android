@@ -1,5 +1,6 @@
 package com.project.android.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -17,18 +18,15 @@ import com.google.firebase.database.ValueEventListener;
 import com.project.android.R;
 import com.project.android.model.Account;
 // LoginActivity.java
-
 public class LoginActivity extends AppCompatActivity {
-
-    Account account ;
     private EditText etUsername, etPassword;
     private Button btnLogin;
+    DatabaseReference database = FirebaseDatabase.getInstance("https://quanlyquancom-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Account");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.acctivity_login);
-
         etUsername = findViewById(R.id.usename);
         etPassword = findViewById(R.id.password);
         btnLogin = findViewById(R.id.buttonLogin);
@@ -36,38 +34,32 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                account = new Account();
                 String username = etUsername.getText().toString();
-                Toast.makeText(LoginActivity.this, username, Toast.LENGTH_SHORT).show();
                 String password = etPassword.getText().toString();
-                DatabaseReference database = FirebaseDatabase.getInstance("https://quanlyquancom-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Account");
-                database.child("User").child(username).addValueEventListener(new ValueEventListener() {
+                database.child("User").child(username).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        Account user= snapshot.getValue(Account.class);
-                        Toast.makeText(LoginActivity.this, user.getPassword(), Toast.LENGTH_SHORT).show();
-                        methodToProcess( user);
+                        if (snapshot.exists()) {
+                            Account account = snapshot.getValue(Account.class);
+                            if (account.getPassword().equals(password)) {
+                                Toast.makeText(LoginActivity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(LoginActivity.this, AdminActivity.class);
+                                intent.putExtra("account",account);
+                                startActivity(intent);
+                            } else {
+                                Toast.makeText(LoginActivity.this, "Mật khẩu không chính xác", Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            Toast.makeText(LoginActivity.this, "Tên đăng nhập không tồn tại", Toast.LENGTH_SHORT).show();
+                        }
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-
+                        Toast.makeText(LoginActivity.this, "Đã xảy ra lỗi", Toast.LENGTH_SHORT).show();
                     }
                 });
-
-//                Toast.makeText(LoginActivity.this, account.getPassword(), Toast.LENGTH_SHORT).show();
-                // Kiểm tra tên đăng nhập và mật khẩu
-//                if (account!=null) {
-//                    Toast.makeText(LoginActivity.this, "Đăng nhập thành công,"+account.getPassword(), Toast.LENGTH_SHORT).show();
-//                }else {
-//                    Toast.makeText(LoginActivity.this, account.getPassword(), Toast.LENGTH_SHORT).show();
-//                }
             }
         });
-
-    }
-    public void methodToProcess(Account a){
-        this.account = a;
-        Toast.makeText(LoginActivity.this, account.getEmail(), Toast.LENGTH_SHORT).show();
     }
 }
