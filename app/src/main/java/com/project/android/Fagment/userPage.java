@@ -24,7 +24,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.project.android.Adapter.usertabadapter;
 import com.project.android.R;
+import com.project.android.activity.UserActitity;
 import com.project.android.model.Account;
 
 
@@ -36,8 +38,10 @@ public class userPage extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user_page, container, false);
+        UserActitity activity = (UserActitity) getActivity();
+        String myDataFromActivity = activity.getMyData();
         create(view);
-
+        getdata(myDataFromActivity);
         return view;
     }
     private void getdata(String id){
@@ -47,6 +51,7 @@ public class userPage extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Account account = snapshot.getValue(Account.class);
                 setData(account);
+                getImage(account);
             }
 
             @Override
@@ -59,7 +64,6 @@ public class userPage extends Fragment {
     private void getImage(Account pr){
         StorageReference storageReference = FirebaseStorage.getInstance().getReference();
         StorageReference photoReference= storageReference.child(pr.getAvatar());
-
         final long ONE_MEGABYTE = 1024 * 1024;
         photoReference.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
             @Override
