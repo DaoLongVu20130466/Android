@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -38,10 +40,11 @@ public class oderDetails extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         oncreate();
+
         Intent intent = getIntent();
         if(intent.hasExtra("idoder")) {
             Bundle b = getIntent().getExtras();
-            if(!b.getString("id").equals(null)) {
+            if(!b.getString("idoder").equals(null)) {
                 String index = b.getString("idoder");
                 getData(index);
             }
@@ -74,12 +77,48 @@ public class oderDetails extends AppCompatActivity {
         totalcost.setText("od.getTotal()");
         id.setText(od.getId());
         id.setVisibility(View.INVISIBLE);
+        btnAction();
+        if (!status.getText().toString().equals("Hoàn thành")){
+            btn.setVisibility(View.INVISIBLE);
+        }
     }
     private void showList(ArrayList<ProductOfOder> e){
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         recycler.setLayoutManager(linearLayoutManager);
         oderAdapt oderAdapter = new oderAdapt(e);
         recycler.setAdapter(oderAdapter);
+    }
+    private void btnAction(){
+         btn.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View view) {
+                 AlertDialog.Builder builder = new AlertDialog.Builder(oderDetails.this);
+
+                 builder.setTitle("Confirm");
+                 builder.setMessage("Anh trai à, anh chắc chứ?");
+
+                 builder.setPositiveButton("OK!", new DialogInterface.OnClickListener() {
+
+                     public void onClick(DialogInterface dialog, int which) {
+                         database= FirebaseDatabase.getInstance("https://quanlyquancom-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Oder");
+                         database.child("Oder").child( id.getText().toString()).child("status").setValue("Huỷ");
+                         dialog.dismiss();
+                     }
+                 });
+
+                 builder.setNegativeButton("Không !", new DialogInterface.OnClickListener() {
+
+                     @Override
+                     public void onClick(DialogInterface dialog, int which) {
+                         dialog.dismiss();
+                     }
+                 });
+
+                 AlertDialog alert = builder.create();
+                 alert.show();
+
+             }
+         });
     }
     private void getData(String id){
         database= FirebaseDatabase.getInstance("https://quanlyquancom-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Oder");
