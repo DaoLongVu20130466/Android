@@ -16,7 +16,7 @@ public class AdminActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager2 viewPager2;
     private MyViewPagerAdapter myViewPagerAdapter;
-
+    String myString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,5 +47,6 @@ public class AdminActivity extends AppCompatActivity {
         }).attach();
 
     }
+
 
 }

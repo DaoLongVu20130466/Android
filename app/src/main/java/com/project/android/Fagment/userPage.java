@@ -1,61 +1,97 @@
 package com.project.android.Fagment;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.project.android.Adapter.usertabadapter;
 import com.project.android.R;
+import com.project.android.activity.UserActitity;
+import com.project.android.model.Account;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link userPage#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class userPage extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public userPage() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment userPage.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static userPage newInstance(String param1, String param2) {
-        userPage fragment = new userPage();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
+    DatabaseReference database;
+    TextView userName,userName1,gmail,phoneNumber;
+    ImageView image;
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_user_page, container, false);
+        UserActitity activity = (UserActitity) getActivity();
+        String myDataFromActivity = activity.getMyData();
+        create(view);
+        getdata(myDataFromActivity);
+        return view;
     }
+    private void getdata(String id){
+        database= FirebaseDatabase.getInstance("https://quanlyquancom-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Account");
+        database.child("User").child(id).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Account account = snapshot.getValue(Account.class);
+                setData(account);
+                getImage(account);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void getImage(Account pr){
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+        StorageReference photoReference= storageReference.child(pr.getAvatar());
+        final long ONE_MEGABYTE = 1024 * 1024;
+        photoReference.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                image.setImageBitmap(bmp);
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+
+            }
+        });
+    }
+    private void setData(Account acc){
+        userName.setText(acc.getName());
+        userName1.setText(acc.getUserName());
+        gmail.setText(acc.getEmail());
+        phoneNumber.setText(acc.getPhoneNumber());
+    }
+    private void create(View view){
+        userName = (TextView) view.findViewById(R.id.userName);
+        userName1 = (TextView) view.findViewById(R.id.userName1);
+        gmail = (TextView) view.findViewById(R.id.gmail);
+        phoneNumber = (TextView) view.findViewById(R.id.phoneNumber);
+        image = (ImageView) view.findViewById(R.id.image);
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

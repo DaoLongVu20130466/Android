@@ -9,6 +9,8 @@ import com.project.android.Fagment.Add_Product__Fragment;
 import com.project.android.Fagment.Ql_Order__Fragment;
 import com.project.android.Fagment.Ql_product__Fragment;
 import com.project.android.Fagment.ThongKe__Fragment;
+import com.project.android.Fagment.editUserPage;
+import com.project.android.Fagment.userPage;
 
 public class usertabadapter extends FragmentStateAdapter {
     public usertabadapter(@NonNull FragmentActivity fragmentActivity) {
@@ -20,18 +22,16 @@ public class usertabadapter extends FragmentStateAdapter {
     public Fragment createFragment(int position) {
         switch (position) {
             case 1:
-                return new Add_Product__Fragment();
-            case 2:
-                return new Ql_product__Fragment();
+                return new editUserPage();
             default:
-                return  new ThongKe__Fragment();
+                return  new userPage();
         }
 
     }
 
     @Override
     public int getItemCount() {
-        return 3;
+        return 2;
     }
 }
 
