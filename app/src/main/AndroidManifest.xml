@@ -12,7 +12,7 @@
         android:theme="@style/Theme.QuanLyQuanCom"
         tools:targetApi="31">
         <activity
-            android:name=".activity.ShoppingCart"
+            android:name=".activity.ShoppingCartActivity"
             android:exported="false" />
         <activity
             android:name=".activity.MainActivity"
