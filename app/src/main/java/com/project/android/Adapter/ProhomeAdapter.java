@@ -8,27 +8,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.project.android.R;
 import com.project.android.model.Product;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class ProAdapter extends RecyclerView.Adapter<ProAdapter.ProView> {
+public class ProhomeAdapter extends RecyclerView.Adapter<ProhomeAdapter.ProView> {
     private Context context;
     private List<Product> myListpro ;
 
-    public ProAdapter(List<Product> productList) {
+    public ProhomeAdapter(List<Product> productList) {
         this.myListpro = productList;
         notifyDataSetChanged();
     }
@@ -42,7 +39,7 @@ public class ProAdapter extends RecyclerView.Adapter<ProAdapter.ProView> {
     @NonNull
     @Override
     public ProView onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_pro,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_home,parent,false);
         return new ProView(view);
     }
 
