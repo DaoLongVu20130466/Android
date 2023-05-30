@@ -5,10 +5,15 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
 
 import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
+import com.project.android.Adapter.HomeAdapter;
+import com.project.android.Adapter.MyViewPagerAdapter;
+import com.project.android.Adapter.ProhomeAdapter;
 import com.project.android.Fagment.AccountFragment;
 import com.project.android.Fagment.CartFragment;
 import com.project.android.Fagment.HomeFragment;
@@ -20,54 +25,36 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private TabLayout tabLayout;
-    private ViewPager viewPager;
+    private ViewPager2 viewPager2;
+    private HomeAdapter myViewPagerAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         tabLayout = findViewById(R.id.tabLayout);
-        viewPager = findViewById(R.id.viewTrangChu);
+        viewPager2 = findViewById(R.id.viewTrangChu);
 
-        setupViewPager(viewPager);
-        tabLayout.setupWithViewPager(viewPager);
-    }
+        myViewPagerAdapter = new HomeAdapter(this);
+        viewPager2.setAdapter(myViewPagerAdapter);
 
-    private void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new HomeFragment(), "Home");
-        adapter.addFragment(new CartFragment(), "Giỏ hàng");
-        adapter.addFragment(new AccountFragment(), "Account");
-        viewPager.setAdapter(adapter);
-    }
 
-    private static class ViewPagerAdapter extends FragmentPagerAdapter {
-        private final List<Fragment> fragmentList = new ArrayList<>();
-        private final List<String> fragmentTitleList = new ArrayList<>();
-
-        public ViewPagerAdapter(FragmentManager manager) {
-            super(manager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-        }
-
-        public void addFragment(Fragment fragment, String title) {
-            fragmentList.add(fragment);
-            fragmentTitleList.add(title);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return fragmentList.get(position);
-        }
-
-        @Override
-        public int getCount() {
-            return fragmentList.size();
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return fragmentTitleList.get(position);
-        }
+        new TabLayoutMediator(tabLayout, viewPager2, (tab, position) -> {
+            switch (position) {
+                case 0:
+                    tab.setText("Trang Chủ");
+                    break;
+                case 1:
+                    tab.setText("Gian hàng");
+                    break;
+                case 2:
+                    tab.setText("Giỏ hàng");
+                    break;
+                case 3:
+                    tab.setText("Tài khoản");
+                    break;
+            }
+        }).attach();
     }
 }

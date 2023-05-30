@@ -68,6 +68,7 @@ public class ProhomeAdapter extends RecyclerView.Adapter<ProhomeAdapter.ProView>
         });
         holder.textView.setText(product.getFoodName());
         holder.textView2.setText(product.getIdType());
+        holder.textView3.setText("Giá: "+product.getPrice());
     }
 
     @Override
@@ -82,12 +83,14 @@ public class ProhomeAdapter extends RecyclerView.Adapter<ProhomeAdapter.ProView>
         private ImageView imageView;
         private TextView textView;
         private TextView textView2;
+        private TextView textView3;
 
         public ProView(@NonNull View itemView) {
             super(itemView);
-            imageView = itemView.findViewById(R.id.img_pro);
-            textView = itemView.findViewById(R.id.name_pro);
-            textView2 = itemView.findViewById(R.id.type_pro);
+            imageView = itemView.findViewById(R.id.img_proo);
+            textView = itemView.findViewById(R.id.name_proo);
+            textView2 = itemView.findViewById(R.id.type_proo);
+            textView3 = itemView.findViewById(R.id.gia_pro);
         }
     }
 }
