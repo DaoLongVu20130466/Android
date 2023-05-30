@@ -1,12 +1,14 @@
 package com.project.android.model;
 
-import java.util.ArrayList;
+import com.google.firebase.database.PropertyName;
+
+import java.util.Map;
 
 public class Oder {
     String id;
     String pbuyName;
     String phoneNumber;
-    String Note;
+    String note;
     String dayCrate;
     String status;
     String idAccount;
@@ -15,16 +17,41 @@ public class Oder {
     int net;
     int total;
     String address;
-    ArrayList<String> allOderCart;
+    Map<String,Integer> allOderCart;
 
     public Oder() {
+        // Default constructor required for calls to DataSnapshot.getValue(Oder.class)
     }
 
-    public Oder(String id, String pbuyName, String phoneNumber, String idAccount) {
+    public Oder(String id, String pbuyName, String phoneNumber, String note, String dayCrate, String status, String idAccount, int cost, int ship, int net, int total, String address, Map<String, Integer> allOderCart) {
         this.id = id;
         this.pbuyName = pbuyName;
         this.phoneNumber = phoneNumber;
+        this.note = note;
+        this.dayCrate = dayCrate;
+        this.status = status;
         this.idAccount = idAccount;
+        this.cost = cost;
+        this.ship = ship;
+        this.net = net;
+        this.total = total;
+        this.address = address;
+        this.allOderCart = allOderCart;
+    }
+
+    public Oder(String id, String pbuyName, String phoneNumber, String note, String dayCrate, String status, String idAccount, int cost, int ship, int net, int total, String address) {
+        this.id = id;
+        this.pbuyName = pbuyName;
+        this.phoneNumber = phoneNumber;
+        this.note = note;
+        this.dayCrate = dayCrate;
+        this.status = status;
+        this.idAccount = idAccount;
+        this.cost = cost;
+        this.ship = ship;
+        this.net = net;
+        this.total = total;
+        this.address = address;
     }
 
     public String getId() {
@@ -52,11 +79,11 @@ public class Oder {
     }
 
     public String getNote() {
-        return Note;
+        return note;
     }
 
     public void setNote(String note) {
-        Note = note;
+        this.note = note;
     }
 
     public String getDayCrate() {
@@ -123,11 +150,11 @@ public class Oder {
         this.address = address;
     }
 
-    public ArrayList<String> getAllOderCart() {
+    public Map<String, Integer> getAllOderCart() {
         return allOderCart;
     }
 
-    public void setAllOderCart(ArrayList<String> allOderCart) {
+    public void setAllOderCart(Map<String, Integer> allOderCart) {
         this.allOderCart = allOderCart;
     }
 }
