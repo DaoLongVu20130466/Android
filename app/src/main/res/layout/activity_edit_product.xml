@@ -20,6 +20,13 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/textView7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Chỉnh sửa sản phẩm"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+            <TextView
                 android:id="@+id/textView4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -84,14 +91,6 @@
                 android:ems="10"
                 android:inputType="number" />
 
-            <Button
-                android:id="@+id/ok"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/round_bg"
-                android:textColor="@color/white"
-                android:text="Xác nhận" />
-
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -109,12 +108,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/textView"
-                    android:background="@drawable/round_bg"
-                    android:textColor="@color/white"
                     android:layout_alignParentEnd="true"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
-                    android:text="Camera" />
+                    android:background="@drawable/round_bg"
+                    android:text="Camera"
+                    android:textColor="@color/white" />
 
                 <Button
                     android:id="@+id/gallery"
@@ -123,10 +122,10 @@
                     android:layout_below="@id/textView"
                     android:layout_alignParentStart="true"
                     android:layout_marginStart="16dp"
-                    android:background="@drawable/round_bg"
-                    android:textColor="@color/white"
                     android:layout_marginTop="8dp"
-                    android:text="Thư viện" />
+                    android:background="@drawable/round_bg"
+                    android:text="Thư viện"
+                    android:textColor="@color/white" />
 
                 <ImageView
                     android:id="@+id/showAnh"
@@ -139,6 +138,21 @@
                     android:scaleType="centerCrop" />
 
             </RelativeLayout>
+
+            <Button
+                android:id="@+id/ok"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/round_bg"
+                android:textColor="@color/white"
+                android:text="Xác nhận" />
+
+            <TextView
+                android:id="@+id/productId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="productId"
+                tools:visibility="invisible" />
 
 
         </LinearLayout>

@@ -1,12 +1,20 @@
 package com.project.android.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.Set;
+import java.util.StringTokenizer;
+import com.google.firebase.database.PropertyName;
 
-public class Oder {
+import java.util.Map;
+
+
+public class Oder implements Serializable {
     String id;
     String pbuyName;
     String phoneNumber;
-    String Note;
+    String note;
     String dayCrate;
     String status;
     String idAccount;
@@ -15,17 +23,55 @@ public class Oder {
     int net;
     int total;
     String address;
-    ArrayList<String> allOderCart;
+    Map<String, Integer> allOderCart;
 
-    public Oder() {
-    }
 
-    public Oder(String id, String pbuyName, String phoneNumber, String idAccount) {
+    public Oder(String id, String pbuyName, String phoneNumber, String note, String dayCrate, String status, String idAccount, String address, Map<String, Integer> allOderCart) {
         this.id = id;
         this.pbuyName = pbuyName;
         this.phoneNumber = phoneNumber;
+        this.note = note;
+        this.dayCrate = dayCrate;
+        this.status = status;
         this.idAccount = idAccount;
+        this.address = address;
+        this.allOderCart = allOderCart;
     }
+
+    public Oder() {
+        // Default constructor required for calls to DataSnapshot.getValue(Oder.class)
+    }
+
+    public Oder(String id, String pbuyName, String phoneNumber, String note, String dayCrate, String status, String idAccount, int cost, int ship, int net, int total, String address, Map<String, Integer> allOderCart) {
+        this.id = id;
+        this.pbuyName = pbuyName;
+        this.phoneNumber = phoneNumber;
+        this.note = note;
+        this.dayCrate = dayCrate;
+        this.status = status;
+        this.idAccount = idAccount;
+        this.cost = cost;
+        this.ship = ship;
+        this.net = net;
+        this.total = total;
+        this.address = address;
+        this.allOderCart = allOderCart;
+    }
+
+//    public Oder(String id, String pbuyName, String phoneNumber, String note, String dayCrate, String status, String idAccount, int cost, int ship, int net, int total, String address) {
+//        this.id = id;
+//        this.pbuyName = pbuyName;
+//        this.phoneNumber = phoneNumber;
+//        this.note = note;
+//        this.dayCrate = dayCrate;
+//        this.status = status;
+//        this.idAccount = idAccount;
+//        this.cost = cost;
+//        this.ship = ship;
+//        this.net = net;
+//        this.total = total;
+//        this.address = address;
+//    }
 
     public String getId() {
         return id;
@@ -52,11 +98,11 @@ public class Oder {
     }
 
     public String getNote() {
-        return Note;
+        return note;
     }
 
     public void setNote(String note) {
-        Note = note;
+        this.note = note;
     }
 
     public String getDayCrate() {
@@ -123,11 +169,30 @@ public class Oder {
         this.address = address;
     }
 
-    public ArrayList<String> getAllOderCart() {
+
+    public String getMouth(){
+        StringTokenizer st = new StringTokenizer(dayCrate,"/");
+        st.nextToken();
+        return st.nextToken().toString();
+    }
+    public String getYear(){
+        StringTokenizer st = new StringTokenizer(dayCrate,"/");
+        st.nextToken();
+        st.nextToken();
+        return st.nextToken().toString();
+    }
+    public Map<String, Integer> getAllOderCart() {
         return allOderCart;
     }
+    public String getIDpro(){
+        String rs="";
+        for (Map.Entry<String, Integer> entry : allOderCart.entrySet()) {
+           rs+= entry.getKey();
+        }
+        return rs;
+    }
 
-    public void setAllOderCart(ArrayList<String> allOderCart) {
+    public void setAllOderCart(Map<String, Integer> allOderCart) {
         this.allOderCart = allOderCart;
     }
 }

@@ -1,8 +1,11 @@
 package com.project.android.model;
 
+import com.google.firebase.database.DataSnapshot;
 import com.project.android.controller.AccountControl;
 
-public class Account {
+import java.io.Serializable;
+
+public class Account implements Serializable {
     String id;
     String password;
     String userName;
@@ -21,6 +24,17 @@ public class Account {
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.avatar = avatar;
+        this.name = name;
+    }
+
+    public Account(String username, String password) {
+    }
+
+    public Account(String userName, String password, String phoneNumber, String email, String name) {
+        this.password = password;
+        this.userName = userName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
         this.name = name;
     }
 
@@ -78,5 +92,9 @@ public class Account {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void getAccinfor(DataSnapshot snapshot) {
+
     }
 }
