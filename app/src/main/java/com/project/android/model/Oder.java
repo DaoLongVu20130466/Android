@@ -30,7 +30,7 @@ public class Oder implements Serializable {
         this.id = id;
         this.pbuyName = pbuyName;
         this.phoneNumber = phoneNumber;
-        note = note;
+        this.note = note;
         this.dayCrate = dayCrate;
         this.status = status;
         this.idAccount = idAccount;
