@@ -30,6 +30,9 @@
             android:name=".activity.MainActivity"
             android:exported="true" />
         <activity
+            android:name=".activity.LoginADActivity"
+            android:exported="true"/>
+        <activity
             android:name=".activity.LoginActivity"
             android:exported="true">
 
@@ -44,10 +47,6 @@
         <activity
             android:name=".activity.oderDetails"
             android:exported="true" />
-        <activity
-            android:name=".activity.detailProduct"
-            android:exported="true">
-        </activity>
         <activity
             android:name=".activity.AdminActivity"
             android:exported="true"></activity>

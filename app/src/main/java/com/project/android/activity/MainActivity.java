@@ -54,6 +54,9 @@ public class MainActivity extends AppCompatActivity {
                 case 3:
                     tab.setText("Tài khoản");
                     break;
+                case 4:
+                    tab.setText("Edit");
+                    break;
             }
         }).attach();
     }
