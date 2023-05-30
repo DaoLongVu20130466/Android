@@ -4,11 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:paddingTop="16dp"
+    android:paddingTop="32dp"
     android:paddingEnd="16dp"
-    android:paddingStart="16dp"
+    android:paddingStart="32dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    style="@style/Widget.MaterialComponents.Button">
+    >
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/img_pro"
@@ -34,6 +34,17 @@
             android:layout_height="wrap_content"
             android:text="@string/app_name"
             android:layout_marginTop="8dp"
+            android:textColor="@color/gray"
+            android:textSize="16dp"/>
+        <Button
+            android:id="@+id/btadd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Thêm vào giỏ hàng"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+            android:background="@drawable/round_bg"
             android:textColor="@color/gray"
             android:textSize="16dp"/>
         <View
