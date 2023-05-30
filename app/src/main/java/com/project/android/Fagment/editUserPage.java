@@ -52,10 +52,41 @@ public class editUserPage extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_edit_user_page, container, false);
-        create(view);
-        UserActitity activity = (UserActitity) getActivity();
-        String myDataFromActivity = activity.getMyData();
-        getdata(myDataFromActivity);
+        userName = (EditText) view.findViewById(R.id.userName);
+        userName1 = (EditText) view.findViewById(R.id.userName1);
+        userName1.setVisibility(View.INVISIBLE);
+        gmail = (EditText) view.findViewById(R.id.gmail);
+        phoneNumber = (EditText) view.findViewById(R.id.phoneNumber);
+        image = (ImageView) view.findViewById(R.id.image);
+        button2 =(Button) view.findViewById(R.id.button2);
+        camerau =(ImageView) view.findViewById(R.id.camerau);
+        galleryu  =(ImageView) view.findViewById(R.id.galleryu);
+        password3 = (TextView) view.findViewById(R.id.password3);
+        password3.setVisibility(View.INVISIBLE);
+
+        Intent intent = getActivity().getIntent();
+        Account object = (Account) intent.getSerializableExtra("account");
+        userName.setText(object.getName());
+        userName1.setText(object.getUserName());
+        gmail.setText(object.getEmail());
+        phoneNumber.setText(object.getPhoneNumber());
+        password3.setText(object.getPassword());
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+        StorageReference photoReference= storageReference.child(object.getAvatar());
+        final long ONE_MEGABYTE = 1024 * 1024;
+        photoReference.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                image.setImageBitmap(bmp);
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+
+            }
+        });
         btnclink();
         return view;
     }

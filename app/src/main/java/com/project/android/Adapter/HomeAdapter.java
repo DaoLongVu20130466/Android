@@ -26,7 +26,10 @@ import com.project.android.Fagment.HomeFragment;
 import com.project.android.Fagment.Ql_Order__Fragment;
 import com.project.android.Fagment.Ql_product__Fragment;
 import com.project.android.Fagment.ThongKe__Fragment;
+import com.project.android.Fagment.editUserPage;
+import com.project.android.Fagment.userPage;
 import com.project.android.R;
+import com.project.android.activity.UserActitity;
 import com.project.android.model.Product;
 
 import java.util.List;
@@ -45,7 +48,9 @@ public class HomeAdapter extends FragmentStateAdapter {
             case 2:
                 return new CartFragment();
             case 3:
-                return new AccountFragment();
+                return new userPage();
+            case 4:
+                return new editUserPage();
             default:
                 return  new AccountFragment();
         }
@@ -54,6 +59,6 @@ public class HomeAdapter extends FragmentStateAdapter {
 
     @Override
     public int getItemCount() {
-        return 4;
+        return 5;
     }
 }
