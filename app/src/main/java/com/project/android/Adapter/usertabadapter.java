@@ -9,6 +9,7 @@ import com.project.android.Fagment.Add_Product__Fragment;
 import com.project.android.Fagment.Ql_Order__Fragment;
 import com.project.android.Fagment.Ql_product__Fragment;
 import com.project.android.Fagment.ThongKe__Fragment;
+import com.project.android.Fagment.userPage;
 
 public class usertabadapter extends FragmentStateAdapter {
     public usertabadapter(@NonNull FragmentActivity fragmentActivity) {
@@ -24,7 +25,7 @@ public class usertabadapter extends FragmentStateAdapter {
             case 2:
                 return new Ql_product__Fragment();
             default:
-                return  new ThongKe__Fragment();
+                return  new userPage();
         }
 
     }
