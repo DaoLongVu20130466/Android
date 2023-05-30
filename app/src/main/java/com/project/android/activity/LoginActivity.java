@@ -52,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
                             Account account = snapshot.getValue(Account.class);
                             if (account.getPassword().equals(password)) {
                                 Toast.makeText(LoginActivity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(LoginActivity.this, AdminActivity.class);
+                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                 intent.putExtra("account",account);
                                 startActivity(intent);
                             } else {
