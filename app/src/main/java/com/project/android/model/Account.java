@@ -3,9 +3,7 @@ package com.project.android.model;
 import com.google.firebase.database.DataSnapshot;
 import com.project.android.controller.AccountControl;
 
-import java.io.Serializable;
-
-public class Account implements Serializable {
+public class Account {
     String id;
     String password;
     String userName;

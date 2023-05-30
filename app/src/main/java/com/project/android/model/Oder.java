@@ -1,10 +1,16 @@
 package com.project.android.model;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.Set;
+import java.util.StringTokenizer;
 import com.google.firebase.database.PropertyName;
 
 import java.util.Map;
 
-public class Oder {
+
+public class Oder implements Serializable {
     String id;
     String pbuyName;
     String phoneNumber;
@@ -17,7 +23,20 @@ public class Oder {
     int net;
     int total;
     String address;
-    Map<String,Integer> allOderCart;
+    Map<String, Integer> allOderCart;
+
+
+    public Oder(String id, String pbuyName, String phoneNumber, String note, String dayCrate, String status, String idAccount, String address, Map<String, Integer> allOderCart) {
+        this.id = id;
+        this.pbuyName = pbuyName;
+        this.phoneNumber = phoneNumber;
+        Note = note;
+        this.dayCrate = dayCrate;
+        this.status = status;
+        this.idAccount = idAccount;
+        this.address = address;
+        this.allOderCart = allOderCart;
+    }
 
     public Oder() {
         // Default constructor required for calls to DataSnapshot.getValue(Oder.class)
@@ -150,8 +169,27 @@ public class Oder {
         this.address = address;
     }
 
+
+    public String getMouth(){
+        StringTokenizer st = new StringTokenizer(dayCrate,"/");
+        st.nextToken();
+        return st.nextToken().toString();
+    }
+    public String getYear(){
+        StringTokenizer st = new StringTokenizer(dayCrate,"/");
+        st.nextToken();
+        st.nextToken();
+        return st.nextToken().toString();
+    }
     public Map<String, Integer> getAllOderCart() {
         return allOderCart;
+    }
+    public String getIDpro(){
+        String rs="";
+        for (Map.Entry<String, Integer> entry : allOderCart.entrySet()) {
+           rs+= entry.getKey();
+        }
+        return rs;
     }
 
     public void setAllOderCart(Map<String, Integer> allOderCart) {

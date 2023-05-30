@@ -1,17 +1,16 @@
-package com.project.android.Fagment;
+package com.project.android.activity;
 
-import static android.app.Activity.RESULT_OK;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,10 +19,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
@@ -31,9 +26,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.project.android.R;
-import com.project.android.activity.MainActivity;
 import com.project.android.controller.PictureController;
 import com.project.android.controller.ProductControl;
 import com.project.android.model.Product;
@@ -41,13 +37,15 @@ import com.project.android.model.Product;
 import java.util.ArrayList;
 import java.util.List;
 
+public class editProduct extends AppCompatActivity {
 
-public class Add_Product__Fragment extends Fragment {
-    List<String> foodtype =new ArrayList<String>();;
+
     DatabaseReference database;
+
     Spinner select;
     EditText nametext;
     TextView foodtyp1e;
+    TextView id;
     EditText inputValue;
     EditText inputbasePrice;
     ImageView showAnh;
@@ -55,22 +53,43 @@ public class Add_Product__Fragment extends Fragment {
     Button ok;
     Button gallery;
     TextView url;
+
     PictureController pictureController;
 
     EditText inputQuantity;
-    @Nullable
     @Override
-    public View onCreateView(@Nullable LayoutInflater inflater,@Nullable ViewGroup viewGroup,@Nullable Bundle savedInstanceState){
-        View view =inflater.inflate(R.layout.fragment_add_product__,viewGroup,false);
-      oncreateFragment(view);
-        database= FirebaseDatabase.getInstance("https://quanlyquancom-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("FoodType");
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        onceate();
+        Intent intent = getIntent();
+        if(intent.hasExtra("id")) {
+            Bundle b = getIntent().getExtras();
+            if(!b.getString("id").equals(null)) {
+                String index = b.getString("id");
+                getData(index);
+                setSpiner();
+                clickcontrol();
+            }
+        }
+        else {
+            getData("-NWT4vo4sEXDsFKHOMhe");
+            setSpiner();
+            clickcontrol();
+        }
+
+    }
+
+    private void setSpiner() {
+        database = FirebaseDatabase.getInstance("https://quanlyquancom-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("FoodType");
         database.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                List<String> foodtype =new ArrayList<String>();;
                 for (DataSnapshot ds : snapshot.getChildren()) {
-                    getList(ds.getValue().toString());
+                    foodtype.add(ds.getValue().toString());
                 }
-
+                ArrayAdapter<String> myadapter=new ArrayAdapter<>(editProduct.this,android.R.layout.simple_spinner_item,foodtype);
+                select.setAdapter(myadapter);
             }
 
             @Override
@@ -78,8 +97,67 @@ public class Add_Product__Fragment extends Fragment {
 
             }
         });
-        List<String> city = new ArrayList<String>();
-        city = foodtype;
+    }
+    private void onceate(){
+        setContentView(R.layout.activity_edit_product);
+        select = (Spinner) findViewById(R.id.spinner);
+        nametext = (EditText) findViewById(R.id.nametext);
+        foodtyp1e = (TextView) findViewById(R.id.foodtype);
+        inputValue = (EditText) findViewById(R.id.inputValue);
+        inputQuantity = (EditText) findViewById(R.id.inputQuantity);
+        inputbasePrice = (EditText) findViewById(R.id.inputbasePrice);
+        showAnh = (ImageView) findViewById(R.id.showAnh);
+//        url = (TextView) findViewById(R.id.url);
+        camera = (Button) findViewById(R.id.camera);
+        id = (TextView) findViewById(R.id.productId);
+        gallery = (Button) findViewById(R.id.gallery);
+        ok = (Button) findViewById(R.id.ok);
+    }
+    private void setDataM(Product pr){
+        nametext.setText(pr.getFoodName());
+        select.setSelection(((ArrayAdapter<String>)select.getAdapter()).getPosition(pr.getIdType()));
+        inputbasePrice.setText(Integer.toString(pr.getBasePrice()));
+        inputQuantity.setText(Integer.toString(pr.getQuantity()));
+        inputValue.setText(Integer.toString(pr.getPrice()));
+        id.setText(pr.getId());
+        id.setVisibility(View.INVISIBLE);
+    }
+    private void getData(String id){
+        database = FirebaseDatabase.getInstance("https://quanlyquancom-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Product");
+        database.child("Product").child(id).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Product pr = snapshot.getValue(Product.class);
+                setDataM(pr);
+                getImage(pr);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+    private void getImage(Product pr){
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+        StorageReference photoReference= storageReference.child(pr.getImg());
+
+        final long ONE_MEGABYTE = 1024 * 1024;
+        photoReference.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                showAnh.setImageBitmap(bmp);
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                Toast.makeText(getApplicationContext(), "Khong tim thay anh", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+    private void clickcontrol(){
         gallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -107,13 +185,13 @@ public class Add_Product__Fragment extends Fragment {
                 }else if(TextUtils.isEmpty(inputbasePrice.getText().toString())){
                     inputbasePrice.setError("Không được để trống");
                 }else if(null == showAnh.getDrawable()){
-                    Toast.makeText(getActivity(),"Ảnh không được để trống!",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"Ảnh không được để trống!",Toast.LENGTH_SHORT).show();
                 }else{
                     pictureController = new PictureController(showAnh);
                     pictureController.uploadFileFromCamera().addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(getActivity(),"Không up được ảnh",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(),"Không up được ảnh",Toast.LENGTH_SHORT).show();
 
                         }
                     }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -129,8 +207,8 @@ public class Add_Product__Fragment extends Fragment {
                                     Integer.parseInt(inputValue.getText().toString()),
                                     Integer.parseInt(inputbasePrice.getText().toString()));
                             ProductControl pr = new ProductControl();
-                            pr.SaveProduct(up);
-                            Toast.makeText(getActivity(),"Luư thành công",Toast.LENGTH_SHORT).show();
+                            pr.editProduct(up,id.getText().toString());
+                            Toast.makeText(getApplicationContext(),"Luư thành công",Toast.LENGTH_SHORT).show();
                             remove();
                         }
                     });
@@ -138,14 +216,6 @@ public class Add_Product__Fragment extends Fragment {
 
             }
         });
-        return view;
-
-    }
-
-    private void getList(String s) {
-        foodtype.add(s);
-        ArrayAdapter<String> myadapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,foodtype);
-        select.setAdapter(myadapter);
     }
     private void remove(){
         nametext.getText().clear();
@@ -153,19 +223,6 @@ public class Add_Product__Fragment extends Fragment {
         inputValue.getText().clear();
         inputbasePrice.getText().clear();
         showAnh.setImageDrawable(null);
-    }
-    private void oncreateFragment(View view){
-        select = (Spinner) view.findViewById(R.id.spinner);
-        nametext = (EditText) view.findViewById(R.id.nametext);
-        foodtyp1e = (TextView) view.findViewById(R.id.foodtype);
-        inputValue = (EditText) view.findViewById(R.id.inputValue);
-        inputQuantity = (EditText) view.findViewById(R.id.inputQuantity);
-        inputbasePrice = (EditText) view.findViewById(R.id.inputbasePrice);
-        showAnh = (ImageView) view.findViewById(R.id.showAnh);
-        url = (TextView) view.findViewById(R.id.url);
-        camera = (Button) view.findViewById(R.id.camera);
-        gallery = (Button) view.findViewById(R.id.gallery);
-        ok = (Button) view.findViewById(R.id.ok);
     }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -187,4 +244,4 @@ public class Add_Product__Fragment extends Fragment {
             }
         }
     }
-    }
+}
