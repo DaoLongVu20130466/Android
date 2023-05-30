@@ -58,20 +58,20 @@ public class Oder implements Serializable {
         this.allOderCart = allOderCart;
     }
 
-    public Oder(String id, String pbuyName, String phoneNumber, String note, String dayCrate, String status, String idAccount, int cost, int ship, int net, int total, String address) {
-        this.id = id;
-        this.pbuyName = pbuyName;
-        this.phoneNumber = phoneNumber;
-        this.note = note;
-        this.dayCrate = dayCrate;
-        this.status = status;
-        this.idAccount = idAccount;
-        this.cost = cost;
-        this.ship = ship;
-        this.net = net;
-        this.total = total;
-        this.address = address;
-    }
+//    public Oder(String id, String pbuyName, String phoneNumber, String note, String dayCrate, String status, String idAccount, int cost, int ship, int net, int total, String address) {
+//        this.id = id;
+//        this.pbuyName = pbuyName;
+//        this.phoneNumber = phoneNumber;
+//        this.note = note;
+//        this.dayCrate = dayCrate;
+//        this.status = status;
+//        this.idAccount = idAccount;
+//        this.cost = cost;
+//        this.ship = ship;
+//        this.net = net;
+//        this.total = total;
+//        this.address = address;
+//    }
 
     public String getId() {
         return id;

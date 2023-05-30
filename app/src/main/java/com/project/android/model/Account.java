@@ -30,6 +30,14 @@ public class Account implements Serializable {
     public Account(String username, String password) {
     }
 
+    public Account(String userName, String password, String phoneNumber, String email, String name) {
+        this.password = password;
+        this.userName = userName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.name = name;
+    }
+
     public String getUserName() {
         return userName;
     }
