@@ -53,8 +53,7 @@ public class Ql_Order__Fragment extends Fragment {
             @Override
             public void onClickDetails(Oder oder) {
                 onClickDetails(oder);
-                Intent intent = new Intent(getActivity(), oderDetails.class);
-                startActivity(intent);
+
             }
 
             @Override
@@ -67,6 +66,8 @@ public class Ql_Order__Fragment extends Fragment {
     }
     public void onClickDetails(Oder oder){
         iSenDataListener.sendData(oder.getId());
+        Intent intent = new Intent(getActivity(), oderDetails.class);
+        startActivity(intent);
     }
     public void onclickDeleData(Oder oder){
         new AlertDialog.Builder(getActivity()).setTitle(getString(R.string.app_name))
