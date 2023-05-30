@@ -26,8 +26,8 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@android:color/holo_orange_dark"
-        app:layout_constraintBottom_toBottomOf="parrent"
+        android:background="@color/color"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:title="Giỏ Hàng"
         app:titleTextColor="@color/white"
         />
@@ -70,7 +70,7 @@
     <Button
         android:id="@+id/btnmuahang"
         android:text="Mua Hàng"
-        android:background="@android:color/holo_orange_dark"
+        android:background="@color/color"
         android:textColor="@color/white"
         android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
