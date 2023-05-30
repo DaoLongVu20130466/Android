@@ -16,8 +16,7 @@ import com.project.android.Adapter.MyViewPagerAdapter;
 import com.project.android.Adapter.ProhomeAdapter;
 import com.project.android.Fagment.AccountFragment;
 import com.project.android.Fagment.CartFragment;
-import com.project.android.Fagment.HomeFragment;
-import com.project.android.Fagment.StoreFragment;
+import com.project.android.Fagment.Home_HomeF;
 import com.project.android.R;
 
 import java.util.ArrayList;
@@ -34,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         tabLayout = findViewById(R.id.tabLayout);
+
         viewPager2 = findViewById(R.id.viewTrangChu);
 
         myViewPagerAdapter = new HomeAdapter(this);
@@ -56,5 +56,6 @@ public class MainActivity extends AppCompatActivity {
                     break;
             }
         }).attach();
+
     }
 }

@@ -92,5 +92,11 @@ public class userPage extends Fragment {
         phoneNumber = (TextView) view.findViewById(R.id.phoneNumber);
         image = (ImageView) view.findViewById(R.id.image);
 
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_user_page, container, false);
+
     }
 }
