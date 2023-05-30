@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,32 +17,32 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.project.android.Adapter.ProAdapter;
+import com.project.android.Adapter.ProhomeAdapter;
 import com.project.android.R;
 import com.project.android.model.Product;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
-public class Ql_product__Fragment extends Fragment {
+public class HomeFragment extends Fragment {
     private RecyclerView recyclerView;
 
-    private ProAdapter proAdapter;
+    private ProhomeAdapter proAdapter;
     private List<Product> productList;
     private View view;
 
 
     @Nullable
     @Override
-    public View onCreateView(@Nullable LayoutInflater inflater,@Nullable ViewGroup viewGroup,@Nullable Bundle savedInstanceState){
-        view = inflater.inflate(R.layout.fragment_ql_product__,viewGroup,false);
-        recyclerView = view.findViewById(R.id.rcv_pro);
+    public View onCreateView(@Nullable LayoutInflater inflater, @Nullable ViewGroup viewGroup, @Nullable Bundle savedInstanceState){
+        view = inflater.inflate(R.layout.fragment_home,viewGroup,false);
+        recyclerView = view.findViewById(R.id.rcv_home);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(linearLayoutManager);
         getList();
 
         productList = new ArrayList<>();
-         proAdapter = new ProAdapter(productList);
+        proAdapter = new ProhomeAdapter(productList);
 //        proAdapter.setData(getListPro());
         recyclerView.setAdapter(proAdapter);
         return view;
@@ -60,7 +59,7 @@ public class Ql_product__Fragment extends Fragment {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://quanlyquancom-default-rtdb.asia-southeast1.firebasedatabase.app");
         DatabaseReference myRef = database.getReference("Product/Product");
-//        List<Product> list = new ArrayList();
+        List<Product> list = new ArrayList();
         myRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
@@ -96,3 +95,4 @@ public class Ql_product__Fragment extends Fragment {
     }
 
 }
+
