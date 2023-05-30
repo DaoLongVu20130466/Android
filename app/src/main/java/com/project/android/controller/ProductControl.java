@@ -28,6 +28,13 @@ public class ProductControl {
         product.setId(mGroupId);
         myRef.child("Product").child(product.getId()).setValue(product);
     }
+    public void editProduct(Product product,String id){
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance("https://quanlyquancom-default-rtdb.asia-southeast1.firebasedatabase.app");
+        DatabaseReference myRef = database.getReference("Product");
+        product.setId(id);
+        myRef.child("Product").child(id).setValue(product);
+    }
     public void getProduct(){
         ArrayList<Product> list = new ArrayList<>();
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://quanlyquancom-default-rtdb.asia-southeast1.firebasedatabase.app");

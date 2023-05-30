@@ -12,27 +12,31 @@
         android:theme="@style/Theme.QuanLyQuanCom"
         tools:targetApi="31">
         <activity
-            android:name=".activity.MainActivity"
-            android:exported="true"/>
-        <activity
-            android:name=".activity.LoginActivity"
-
-            android:exported="true">
-
-        </activity>
-
-        <activity
-            android:name=".activity.MainActivity2"
-            android:exported="true">
-        </activity>
-        <activity android:name=".activity.AdminActivity"
+            android:name=".activity.oderDetails"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity
+            android:name=".activity.editProduct"
+            android:exported="true">
+>
+        </activity>
+        <activity
+            android:name=".activity.MainActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activity.LoginActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activity.MainActivity2"
+            android:exported="true" />
+        <activity
+            android:name=".activity.AdminActivity"
+            android:exported="true"></activity>
     </application>
 
 </manifest>

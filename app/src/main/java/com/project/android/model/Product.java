@@ -3,7 +3,9 @@ package com.project.android.model;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class Product {
+import java.io.Serializable;
+
+public class Product implements Serializable {
     String id;
     String foodName;
     String idType;
