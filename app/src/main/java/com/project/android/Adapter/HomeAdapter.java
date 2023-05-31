@@ -23,6 +23,7 @@ import com.project.android.Fagment.AccountFragment;
 import com.project.android.Fagment.Add_Product__Fragment;
 import com.project.android.Fagment.CartFragment;
 import com.project.android.Fagment.HomeFragment;
+import com.project.android.Fagment.Home_HomeF;
 import com.project.android.Fagment.Ql_Order__Fragment;
 import com.project.android.Fagment.Ql_product__Fragment;
 import com.project.android.Fagment.ThongKe__Fragment;
@@ -52,7 +53,7 @@ public class HomeAdapter extends FragmentStateAdapter {
             case 4:
                 return new editUserPage();
             default:
-                return  new AccountFragment();
+                return  new Home_HomeF();
         }
 
     }

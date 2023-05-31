@@ -46,14 +46,9 @@ public class oderDetails extends AppCompatActivity implements ISenDataListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         oncreate();
-
         Intent intent = getIntent();
-        if (intent.hasExtra("idoder")) {
-            Bundle b = getIntent().getExtras();
-            if (!b.getString("idoder").equals(null)) {
-                String index = b.getString("idoder");
-                getData(index);
-            }
+        if (intent.hasExtra("id1")) {
+            getData(intent.getStringExtra("id1"));
         } else {
             getData("001");
         }

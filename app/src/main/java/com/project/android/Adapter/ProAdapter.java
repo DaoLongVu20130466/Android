@@ -36,6 +36,7 @@ public class ProAdapter extends RecyclerView.Adapter<ProAdapter.ProView> {
     public interface IClickListener{
         void onClickDetails(Product product);
         void onClickDelete(Product product);
+        void onClickEdit(Product product);
     }
 
     public ProAdapter(List<Product> productList) {
@@ -95,6 +96,14 @@ public class ProAdapter extends RecyclerView.Adapter<ProAdapter.ProView> {
                 iClickListener.onClickDetails(product);
             }
         });
+        holder.btnedit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                iClickListener.onClickEdit(product);
+            }
+        });
+
+
     }
 
     @Override
@@ -109,7 +118,7 @@ public class ProAdapter extends RecyclerView.Adapter<ProAdapter.ProView> {
         private ImageView imageView;
         private TextView textView;
         private TextView textView2;
-        private Button btndelete, btnDetails;
+        private Button btndelete, btnDetails, btnedit;
 
         public ProView(@NonNull View itemView) {
             super(itemView);
@@ -118,6 +127,7 @@ public class ProAdapter extends RecyclerView.Adapter<ProAdapter.ProView> {
             textView2 = itemView.findViewById(R.id.type_pro);
             btndelete = itemView.findViewById(R.id.detele_pro);
             btnDetails = itemView.findViewById(R.id.detail_pro);
+            btnedit = itemView.findViewById(R.id.edit_pro);
         }
     }
 }
