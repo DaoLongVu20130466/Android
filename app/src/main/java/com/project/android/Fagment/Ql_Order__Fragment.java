@@ -2,6 +2,7 @@ package com.project.android.Fagment;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,8 +20,10 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.project.android.Adapter.ISenDataListener;
 import com.project.android.Adapter.OderAdapter;
 import com.project.android.R;
+import com.project.android.activity.oderDetails;
 import com.project.android.model.Oder;
 import com.project.android.model.Product;
 
@@ -32,6 +35,7 @@ public class Ql_Order__Fragment extends Fragment {
     private RecyclerView recyclerView;
     private OderAdapter oderAdapter;
     private List<Oder> oderList;
+    private static ISenDataListener iSenDataListener;
     private View view;
 
     @Nullable
@@ -48,6 +52,7 @@ public class Ql_Order__Fragment extends Fragment {
         oderAdapter = new OderAdapter(oderList, new OderAdapter.IClickListener() {
             @Override
             public void onClickDetails(Oder oder) {
+                onClickDetails(oder);
 
             }
 
@@ -58,6 +63,11 @@ public class Ql_Order__Fragment extends Fragment {
         });
         recyclerView.setAdapter(oderAdapter);
         return view;
+    }
+    public void onClickDetails(Oder oder){
+        iSenDataListener.sendData(oder.getId());
+        Intent intent = new Intent(getActivity(), oderDetails.class);
+        startActivity(intent);
     }
     public void onclickDeleData(Oder oder){
         new AlertDialog.Builder(getActivity()).setTitle(getString(R.string.app_name))

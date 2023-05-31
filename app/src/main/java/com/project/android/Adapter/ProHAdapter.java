@@ -21,11 +21,11 @@ import com.project.android.model.Product;
 
 import java.util.List;
 
-public class ProhomeAdapter extends RecyclerView.Adapter<ProhomeAdapter.ProView> {
+public class ProHAdapter extends RecyclerView.Adapter<ProHAdapter.ProView> {
     private Context context;
     private List<Product> myListpro ;
 
-    public ProhomeAdapter(List<Product> productList) {
+    public ProHAdapter(List<Product> productList) {
         this.myListpro = productList;
         notifyDataSetChanged();
     }
@@ -39,14 +39,14 @@ public class ProhomeAdapter extends RecyclerView.Adapter<ProhomeAdapter.ProView>
     @NonNull
     @Override
     public ProView onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_home,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_pro_home,parent,false);
         return new ProView(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ProView holder, int position) {
         Product product = myListpro.get(position);
-         if (product  == null) {
+        if (product  == null) {
             return;
         }
         StorageReference storageReference = FirebaseStorage.getInstance().getReference();
@@ -64,11 +64,10 @@ public class ProhomeAdapter extends RecyclerView.Adapter<ProhomeAdapter.ProView>
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception exception) {
-              }
+            }
         });
         holder.textView.setText(product.getFoodName());
         holder.textView2.setText(product.getIdType());
-        holder.textView3.setText("Giá: "+product.getPrice());
     }
 
     @Override
@@ -83,14 +82,12 @@ public class ProhomeAdapter extends RecyclerView.Adapter<ProhomeAdapter.ProView>
         private ImageView imageView;
         private TextView textView;
         private TextView textView2;
-        private TextView textView3;
 
         public ProView(@NonNull View itemView) {
             super(itemView);
-            imageView = itemView.findViewById(R.id.img_proo);
-            textView = itemView.findViewById(R.id.name_proo);
-            textView2 = itemView.findViewById(R.id.type_proo);
-            textView3 = itemView.findViewById(R.id.gia_pro);
+            imageView = itemView.findViewById(R.id.img_proh);
+            textView = itemView.findViewById(R.id.name_proh);
+            textView2 = itemView.findViewById(R.id.price_proh);
         }
     }
 }

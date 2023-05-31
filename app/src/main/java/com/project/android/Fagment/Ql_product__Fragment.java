@@ -1,10 +1,12 @@
 package com.project.android.Fagment;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,8 +19,11 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.project.android.Adapter.ISenDataListener;
+import com.project.android.Adapter.OderAdapter;
 import com.project.android.Adapter.ProAdapter;
 import com.project.android.R;
+import com.project.android.model.Oder;
 import com.project.android.model.Product;
 
 import java.util.ArrayList;
@@ -29,6 +34,7 @@ public class Ql_product__Fragment extends Fragment {
     private RecyclerView recyclerView;
 
     private ProAdapter proAdapter;
+    private static ISenDataListener iSenDataListener;
     private List<Product> productList;
     private View view;
 
@@ -45,6 +51,18 @@ public class Ql_product__Fragment extends Fragment {
         productList = new ArrayList<>();
          proAdapter = new ProAdapter(productList);
 //        proAdapter.setData(getListPro());
+        proAdapter = new ProAdapter(productList, new ProAdapter.IClickListener() {
+            @Override
+            public void onClickDetails(Product product) {
+                onClickDetails(product);
+
+            }
+
+            @Override
+            public void onClickDelete(Product product) {
+                onclickDeleData(product);
+            }
+        });
         recyclerView.setAdapter(proAdapter);
         return view;
     }
@@ -55,6 +73,23 @@ public class Ql_product__Fragment extends Fragment {
         list.add(new Product(R.drawable.pro_default,"Pro3","Type1"));
         list.add(new Product(R.drawable.pro_default,"Pro4","Type1"));
         return list;
+    }
+
+    public void onclickDeleData(Product product){
+        new AlertDialog.Builder(getActivity()).setTitle(getString(R.string.app_name))
+                .setMessage("Đạo hữu có chắc không ?").setPositiveButton("Yah Sure", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        FirebaseDatabase database = FirebaseDatabase.getInstance("https://quanlyquancom-default-rtdb.asia-southeast1.firebasedatabase.app");
+                        DatabaseReference myRef = database.getReference("Product/Product");
+                        myRef.child(String.valueOf(product.getId())).removeValue(new DatabaseReference.CompletionListener() {
+                            @Override
+                            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                                Toast.makeText(getActivity(), "Đã xong", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                }).setNegativeButton("Ta cần nghĩ lại",null).show();
     }
     public void getList(){
 
@@ -80,7 +115,15 @@ public class Ql_product__Fragment extends Fragment {
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-
+                Product product = snapshot.getValue(Product.class);
+                if (product != null){
+                    for (int i = 0 ; i< productList.size();i++){
+                        if (product.getId() == productList.get(i).getId()){
+                            productList.remove(productList.get(i));
+                        }
+                    }
+                }
+                proAdapter.notifyDataSetChanged();
             }
 
             @Override

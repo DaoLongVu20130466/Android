@@ -57,6 +57,12 @@ public class OderAdapter extends RecyclerView.Adapter<OderAdapter.OderViewHolder
                 }
             });
 
+            holder.btnDetails.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    iClickListener.onClickDetails(oder);
+                }
+            });
 
     }
 
