@@ -40,18 +40,13 @@ public class detailProduct extends AppCompatActivity {
         setContentView(R.layout.activity_detail_product);
         onstart();
         Intent intent = getIntent();
-        if(intent.hasExtra("idproduct")) {
-            Bundle b = getIntent().getExtras();
-            if(!b.getString("idoder").equals(null)) {
-                String index = b.getString("idproduct");
-                getData(index);
-                gettotalsale(index);
-            }
+        if (intent.hasExtra("id2")) {
+            getData(intent.getStringExtra("id2"));
+            gettotalsale(intent.getStringExtra("id2"));
+        } else {
+            getData("001");
         }
-        else {
-            getData("-NWT4vo4sEXDsFKHOMhe");
-            gettotalsale("-NWT4vo4sEXDsFKHOMhe");
-        }
+
 
 
 
