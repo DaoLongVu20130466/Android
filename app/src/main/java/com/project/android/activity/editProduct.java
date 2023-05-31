@@ -62,19 +62,12 @@ public class editProduct extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         onceate();
         Intent intent = getIntent();
-        if(intent.hasExtra("id")) {
-            Bundle b = getIntent().getExtras();
-            if(!b.getString("id").equals(null)) {
-                String index = b.getString("id");
-                getData(index);
-                setSpiner();
-                clickcontrol();
-            }
-        }
-        else {
-            getData("-NWT4vo4sEXDsFKHOMhe");
+        if (intent.hasExtra("id3")) {
+            getData(intent.getStringExtra("id3"));
             setSpiner();
             clickcontrol();
+        } else {
+
         }
 
     }

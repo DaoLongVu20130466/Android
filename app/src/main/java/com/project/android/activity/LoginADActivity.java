@@ -19,8 +19,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.project.android.R;
 import com.project.android.model.Account;
+
 // LoginActivity.java
-public class LoginActivity extends AppCompatActivity {
+public class LoginADActivity extends AppCompatActivity {
     private EditText etUsername, etPassword;
     private TextView textView;
     private Button btnLogin;
@@ -30,52 +31,44 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.acctivity_login);
-        etUsername = findViewById(R.id.usename);
-        textView = findViewById(R.id.gotoRegister);
-        etPassword = findViewById(R.id.password);
-        btnLogin = findViewById(R.id.buttonLogin);
-        imageView =findViewById(R.id.showAnh);
+        setContentView(R.layout.ac_login_ad);
+        etUsername = findViewById(R.id.usenameAD);
+        etPassword = findViewById(R.id.passwordAD);
+        btnLogin = findViewById(R.id.buttonLoginAD);
+        imageView =findViewById(R.id.showAnhAD);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, LoginADActivity.class);
+                Intent intent = new Intent(LoginADActivity.this, LoginActivity.class);
                 startActivity(intent);
             }
         });
-        textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
-                startActivity(intent);
-            }
-        });
+
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String username = etUsername.getText().toString();
                 String password = etPassword.getText().toString();
-                database.child("User").child(username).addListenerForSingleValueEvent(new ValueEventListener() {
+                database.child("Admin").child(username).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (snapshot.exists()) {
                             Account account = snapshot.getValue(Account.class);
                             if (account.getPassword().equals(password)) {
-                                Toast.makeText(LoginActivity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                intent.putExtra("account",account);
+                                Toast.makeText(LoginADActivity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(LoginADActivity.this, AdminActivity.class);
                                 startActivity(intent);
                             } else {
-                                Toast.makeText(LoginActivity.this, "Mật khẩu không chính xác", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginADActivity.this, "Mật khẩu không chính xác", Toast.LENGTH_SHORT).show();
                             }
                         } else {
-                            Toast.makeText(LoginActivity.this, "Tên đăng nhập không tồn tại", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginADActivity.this, "Tên đăng nhập không tồn tại", Toast.LENGTH_SHORT).show();
                         }
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-                        Toast.makeText(LoginActivity.this, "Đã xảy ra lỗi", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginADActivity.this, "Đã xảy ra lỗi", Toast.LENGTH_SHORT).show();
                     }
                 });
             }

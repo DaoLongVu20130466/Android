@@ -1,5 +1,6 @@
 package com.project.android.Fagment;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -38,10 +39,33 @@ public class userPage extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user_page, container, false);
-        UserActitity activity = (UserActitity) getActivity();
-        String myDataFromActivity = activity.getMyData();
-        create(view);
-        getdata(myDataFromActivity);
+        Intent intent = getActivity().getIntent();
+        Account object = (Account) intent.getSerializableExtra("account");
+        userName = (TextView) view.findViewById(R.id.userName);
+        userName1 = (TextView) view.findViewById(R.id.userName1);
+        gmail = (TextView) view.findViewById(R.id.gmail);
+        phoneNumber = (TextView) view.findViewById(R.id.phoneNumber);
+        image = (ImageView) view.findViewById(R.id.image);
+        userName.setText(object.getName());
+        userName1.setText(object.getUserName());
+        gmail.setText(object.getEmail());
+        phoneNumber.setText(object.getPhoneNumber());
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+        StorageReference photoReference= storageReference.child(object.getAvatar());
+        final long ONE_MEGABYTE = 1024 * 1024;
+        photoReference.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                image.setImageBitmap(bmp);
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+
+            }
+        });
         return view;
     }
     private void getdata(String id){
@@ -92,5 +116,12 @@ public class userPage extends Fragment {
         phoneNumber = (TextView) view.findViewById(R.id.phoneNumber);
         image = (ImageView) view.findViewById(R.id.image);
 
-    }
-}
+
+//    @Override
+//    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+//                             Bundle savedInstanceState) {
+//        return inflater.inflate(R.layout.fragment_user_page, container, false);
+//
+//    }
+}}
+

@@ -8,7 +8,6 @@ import android.os.Bundle;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
-import com.project.android.Adapter.MyViewPagerAdapter;
 import com.project.android.Adapter.usertabadapter;
 import com.project.android.R;
 
@@ -23,7 +22,7 @@ public class UserActitity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_actitity);
+//        setContentView(R.layout.activity_user_actitity);
 
         Intent intent = getIntent();
         if(intent.hasExtra("iduser")) {
