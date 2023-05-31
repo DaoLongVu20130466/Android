@@ -2,6 +2,7 @@ package com.project.android.Fagment;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +24,9 @@ import com.project.android.Adapter.ISenDataListener;
 import com.project.android.Adapter.OderAdapter;
 import com.project.android.Adapter.ProAdapter;
 import com.project.android.R;
+import com.project.android.activity.detailProduct;
+import com.project.android.activity.editProduct;
+import com.project.android.activity.oderDetails;
 import com.project.android.model.Oder;
 import com.project.android.model.Product;
 
@@ -54,7 +58,15 @@ public class Ql_product__Fragment extends Fragment {
         proAdapter = new ProAdapter(productList, new ProAdapter.IClickListener() {
             @Override
             public void onClickDetails(Product product) {
-                onClickDetails(product);
+                Intent intent = new Intent(getActivity(), detailProduct.class);
+                intent.putExtra("id2",product.getId());
+                startActivity(intent);
+
+            }
+            public void onClickEdit(Product product) {
+                Intent intent = new Intent(getActivity(), editProduct.class);
+                intent.putExtra("id3",product.getId());
+                startActivity(intent);
 
             }
 
